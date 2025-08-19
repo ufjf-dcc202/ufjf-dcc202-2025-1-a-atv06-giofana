@@ -13,8 +13,11 @@ eApp.append(eTabuleiro);
 function criaCasa(tipo) {
   const eCasa = document.createElement("div");
   eCasa.classList.add("casa");
+  eCasa.dataset.linha = l;
+  eCasa.dataset.coluna = c;
   if (tipo === 1) eCasa.classList.add("pino");
   if (tipo === 0) eCasa.classList.add("vazio");
+  eCasa.addEventListener("click", cliqueCasa);
   return eCasa;
 }
 
@@ -40,7 +43,7 @@ function atualizaTabuleiro() {
         const vazio = document.createElement("div");
         eTabuleiro.append(vazio);
       } else {
-        eTabuleiro.append(criaCasa(valor));
+        eTabuleiro.append(criaCasa(valor, i, j));
       }
     }
   }
