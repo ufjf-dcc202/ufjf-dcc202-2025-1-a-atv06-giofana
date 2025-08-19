@@ -52,3 +52,17 @@ export function tentaMover(destL, destC){
     }
     return false;
 }
+
+export function temMovimentos() {
+  for (let l = 0; l < 7; l++) {
+    for (let c = 0; c < 7; c++) {
+      if (tabuleiro[l][c] === 1) {
+        if (l > 1 && tabuleiro[l-1][c] === 1 && tabuleiro[l-2][c] === 0) return true;
+        if (l < 5 && tabuleiro[l+1][c] === 1 && tabuleiro[l+2][c] === 0) return true;
+        if (c > 1 && tabuleiro[l][c-1] === 1 && tabuleiro[l][c-2] === 0) return true;
+        if (c < 5 && tabuleiro[l][c+1] === 1 && tabuleiro[l][c+2] === 0) return true;
+      }
+    }
+  }
+  return false;
+}

@@ -36,6 +36,8 @@ const inicial = [
 function atualizaTabuleiro() {
   eTabuleiro.innerHTML = "";
   const tab = getTabuleiro();
+  const sel = getSelecionado();
+
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 7; j++) {
       const valor = tab[i][j];
@@ -43,7 +45,11 @@ function atualizaTabuleiro() {
         const vazio = document.createElement("div");
         eTabuleiro.append(vazio);
       } else {
-        eTabuleiro.append(criaCasa(valor, i, j));
+        const eCasa = criaCasa(valor, i, j);
+        if (sel && sel.l === i && sel.c === j) {
+          eCasa.style.outline = "2px solid red";
+        }
+        eTabuleiro.append(eCasa);
       }
     }
   }
@@ -57,11 +63,15 @@ function cliqueCasa(ev) {
   const sel = getSelecionado();
   if (sel) {
     if (!tentaMover(l, c)) {
-      seleciona(l, c); 
+      seleciona(l, c);
     }
   } else {
     seleciona(l, c);
   }
 
   atualizaTabuleiro();
+
+  if (!temMovimentos()) {
+    setTimeout(() => alert("Fim de jogo!"), 100);
+  }
 }
