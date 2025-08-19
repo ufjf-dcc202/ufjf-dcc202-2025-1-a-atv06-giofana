@@ -1,4 +1,5 @@
-import { getTabuleiro, seleciona, getSelecionado, tentaMover } from "./restaum.js";
+import { getTabuleiro, seleciona, getSelecionado, tentaMover, temMovimentos, reinicia } from "./restaum.js";
+
 const eApp = document.querySelector("#app");
 
 function criaTabuleiro() {
@@ -10,28 +11,18 @@ function criaTabuleiro() {
 const eTabuleiro = criaTabuleiro();
 eApp.append(eTabuleiro);
 
-function criaCasa(tipo) {
+function criaCasa(tipo, l, c) {
   const eCasa = document.createElement("div");
   eCasa.classList.add("casa");
   eCasa.dataset.linha = l;
   eCasa.dataset.coluna = c;
+
   if (tipo === 1) eCasa.classList.add("pino");
   if (tipo === 0) eCasa.classList.add("vazio");
+
   eCasa.addEventListener("click", cliqueCasa);
   return eCasa;
 }
-
-eTabuleiro.append(criaCasa(1));
-
-const inicial = [
-  [-1,-1,1,1,1,-1,-1],
-  [-1,-1,1,1,1,-1,-1],
-  [ 1, 1,1,1,1, 1, 1],
-  [ 1, 1,1,0,1, 1, 1],
-  [ 1, 1,1,1,1, 1, 1],
-  [-1,-1,1,1,1,-1,-1],
-  [-1,-1,1,1,1,-1,-1],
-];
 
 function atualizaTabuleiro() {
   eTabuleiro.innerHTML = "";
@@ -42,8 +33,8 @@ function atualizaTabuleiro() {
     for (let j = 0; j < 7; j++) {
       const valor = tab[i][j];
       if (valor === -1) {
-        const vazio = document.createElement("div");
-        eTabuleiro.append(vazio);
+        const placeholder = document.createElement("div");
+        eTabuleiro.append(placeholder);
       } else {
         const eCasa = criaCasa(valor, i, j);
         if (sel && sel.l === i && sel.c === j) {
@@ -54,7 +45,6 @@ function atualizaTabuleiro() {
     }
   }
 }
-atualizaTabuleiro();
 
 function cliqueCasa(ev) {
   const l = Number(ev.currentTarget.dataset.linha);
@@ -75,3 +65,10 @@ function cliqueCasa(ev) {
     setTimeout(() => alert("Fim de jogo!"), 100);
   }
 }
+
+document.querySelector("#reiniciar").addEventListener("click", () => {
+  reinicia();
+  atualizaTabuleiro();
+});
+
+atualizaTabuleiro();

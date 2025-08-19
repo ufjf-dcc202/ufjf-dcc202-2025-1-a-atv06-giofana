@@ -14,43 +14,55 @@ export function getTabuleiro() {
 
 let selecionado = null;
 
-export function seleciona(l,c){
-  if(tabuleiro[l][c] === 1){
-    selecionado = { l, c };
+export function seleciona(l, c) {
+  if (l == null || c == null) {
+    selecionado = null;
+    return;
+  }
+  if (tabuleiro[l][c] === 1) {
+    if (selecionado && selecionado.l === l && selecionado.c === c) {
+      selecionado = null;
+    } else {
+      selecionado = { l, c };
+    }
   } else {
     selecionado = null;
   }
 }
 
-export function getSelecionado(){ 
-    return selecionado; 
+export function getSelecionado() {
+  return selecionado ? { ...selecionado } : null;
 }
 
-export function tentaMover(destL, destC){
-    if (selecionado === null) return false;
-    const { l, c } = selecionado;
+export function tentaMover(destL, destC) {
+  if (selecionado === null) return false;
+  if (tabuleiro[destL][destC] !== 0) return false;
 
-    if (l === destL && Math.abs(c - destC) === 2) {
-        const meio = (c + destC) / 2;
-        if (tabuleiro[l][meio] === 1 && tabuleiro[destL][destC] === 0) {
-            tabuleiro[l][c] = 0;
-            tabuleiro[l][meio] = 0;
-            tabuleiro[destL][destC] = 1;
-            selecionado = null;
-            return true;
-        }
+  const { l, c } = selecionado;
+
+  if (l === destL && Math.abs(c - destC) === 2) {
+    const meioC = (c + destC) / 2;
+    if (tabuleiro[l][meioC] === 1) {
+      tabuleiro[l][c] = 0;
+      tabuleiro[l][meioC] = 0;
+      tabuleiro[destL][destC] = 1;
+      selecionado = null;
+      return true;
     }
-    if (c === destC && Math.abs(l - destL) === 2) {
-        const meio = (l + destL) / 2;
-        if (tabuleiro[meio][c] === 1 && tabuleiro[destL][destC] === 0) {
-            tabuleiro[l][c] = 0;
-            tabuleiro[meio][c] = 0;
-            tabuleiro[destL][destC] = 1;
-            selecionado = null;
-            return true;
-        }
+  }
+
+  if (c === destC && Math.abs(l - destL) === 2) {
+    const meioL = (l + destL) / 2;
+    if (tabuleiro[meioL][c] === 1) {
+      tabuleiro[l][c] = 0;
+      tabuleiro[meioL][c] = 0;
+      tabuleiro[destL][destC] = 1;
+      selecionado = null;
+      return true;
     }
-    return false;
+  }
+
+  return false;
 }
 
 export function temMovimentos() {
@@ -65,4 +77,17 @@ export function temMovimentos() {
     }
   }
   return false;
+}
+
+export function reinicia() {
+  tabuleiro = [
+    [-1,-1,1,1,1,-1,-1],
+    [-1,-1,1,1,1,-1,-1],
+    [ 1, 1,1,1,1, 1, 1],
+    [ 1, 1,1,0,1, 1, 1],
+    [ 1, 1,1,1,1, 1, 1],
+    [-1,-1,1,1,1,-1,-1],
+    [-1,-1,1,1,1,-1,-1],
+  ];
+  selecionado = null;
 }
