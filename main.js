@@ -1,4 +1,4 @@
-import { getTabuleiro } from "./restaum.js";
+import { getTabuleiro, seleciona, getSelecionado, tentaMover } from "./restaum.js";
 const eApp = document.querySelector("#app");
 
 function criaTabuleiro() {
@@ -53,5 +53,15 @@ atualizaTabuleiro();
 function cliqueCasa(ev) {
   const l = Number(ev.currentTarget.dataset.linha);
   const c = Number(ev.currentTarget.dataset.coluna);
+
+  const sel = getSelecionado();
+  if (sel) {
+    if (!tentaMover(l, c)) {
+      seleciona(l, c); 
+    }
+  } else {
+    seleciona(l, c);
+  }
+
   atualizaTabuleiro();
 }
