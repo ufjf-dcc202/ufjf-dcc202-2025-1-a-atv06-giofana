@@ -18,3 +18,30 @@ function criaCasa(tipo) {
 }
 
 eTabuleiro.append(criaCasa(1));
+
+const inicial = [
+  [-1,-1,1,1,1,-1,-1],
+  [-1,-1,1,1,1,-1,-1],
+  [ 1, 1,1,1,1, 1, 1],
+  [ 1, 1,1,0,1, 1, 1],
+  [ 1, 1,1,1,1, 1, 1],
+  [-1,-1,1,1,1,-1,-1],
+  [-1,-1,1,1,1,-1,-1],
+];
+
+function atualizaTabuleiro() {
+  eTabuleiro.innerHTML = "";
+  for (let i = 0; i < 7; i++) {
+    for (let j = 0; j < 7; j++) {
+      const valor = inicial[i][j];
+      if (valor === -1) {
+        const vazio = document.createElement("div");
+        eTabuleiro.append(vazio);
+      } else {
+        eTabuleiro.append(criaCasa(valor));
+      }
+    }
+  }
+}
+
+atualizaTabuleiro();
