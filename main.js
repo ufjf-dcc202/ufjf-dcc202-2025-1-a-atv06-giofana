@@ -8,3 +8,13 @@ function criaTabuleiro() {
 
 const eTabuleiro = criaTabuleiro();
 eApp.append(eTabuleiro);
+
+function criaCasa(tipo) {
+  const eCasa = document.createElement("div");
+  eCasa.classList.add("casa");
+  if (tipo === 1) eCasa.classList.add("pino");
+  if (tipo === 0) eCasa.classList.add("vazio");
+  return eCasa;
+}
+
+eTabuleiro.append(criaCasa(1));

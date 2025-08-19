@@ -11,9 +11,25 @@
             grid-template-columns: repeat(7, 40px);
             grid-template-rows: repeat(7, 40px);
             gap: 4px;
-            background: #cbd5e1;
+            background: #c3eace;
             padding: 10px;
             border-radius: 12px;
+        }
+        .casa {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #f0f0f0;
+            display: grid;
+            place-items: center;
+        }
+
+        .casa.vazio {
+            background: #f1f5f9;
+        }
+
+        .casa.pino {
+            background: radial-gradient(circle at 30% 20%, #e3f4e3, #16995a);
         }
     </style>
 </head>
