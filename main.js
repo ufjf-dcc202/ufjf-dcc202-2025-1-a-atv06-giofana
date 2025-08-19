@@ -45,5 +45,10 @@ function atualizaTabuleiro() {
     }
   }
 }
-
 atualizaTabuleiro();
+
+function cliqueCasa(ev) {
+  const l = Number(ev.currentTarget.dataset.linha);
+  const c = Number(ev.currentTarget.dataset.coluna);
+  atualizaTabuleiro();
+}
