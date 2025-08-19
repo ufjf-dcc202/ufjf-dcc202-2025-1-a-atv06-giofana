@@ -1,3 +1,4 @@
+import { getTabuleiro } from "./restaum.js";
 const eApp = document.querySelector("#app");
 
 function criaTabuleiro() {
@@ -31,9 +32,10 @@ const inicial = [
 
 function atualizaTabuleiro() {
   eTabuleiro.innerHTML = "";
+  const tab = getTabuleiro();
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 7; j++) {
-      const valor = inicial[i][j];
+      const valor = tab[i][j];
       if (valor === -1) {
         const vazio = document.createElement("div");
         eTabuleiro.append(vazio);
